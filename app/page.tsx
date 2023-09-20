@@ -3,13 +3,14 @@
 import Image from 'next/image'
 import {useState} from 'react'
 import { Button } from '@chakra-ui/react';
+import Basic from './form';
 
 export default function Home() {
-  let count = 0;
+  const [count, setCount] = useState(0);
 
   const handleClick = () => {
-    // TODO: update count correctly using state
-    count += 1;
+    setCount(count + 1);
+
   }
 
   return (
@@ -35,6 +36,7 @@ export default function Home() {
       Hopefully it's not an issue with Nium's components, but that's why we specified color with 
       both class names and the Chakra UI colorScheme prop
       */}
+      <Basic/>
       <Button className="bg-sky-600" colorScheme='blue' onClick={handleClick}>Increment</Button>
       <div>
         Hello world
