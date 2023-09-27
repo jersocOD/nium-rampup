@@ -14,16 +14,9 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main style={{ backgroundColor: '#ADE9E8'}} className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+        <Image src={require('/images/madlibs.png')} width="500" height="500" alt=""/>
       </div>
       {/* 
       FYI: Chakra UI and TailwindCSS tend to clash sometimes when styling components. 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikProps } from 'formik';
+import { useForm, SubmitHandler } from 'react-hook-form'
 import {
-    FormControl,
+    Box,
     FormLabel,
     Input,
     Button,
@@ -22,6 +22,8 @@ a dating app exclusively for robots. Their motto was "Coding, Chaos, and _______
 make the tech world laugh as they debugged their way through Berkeley's campus.
 
 */
+
+
 type initialValuesType = {
     noun: string;
     source: string;
@@ -33,82 +35,83 @@ type initialValuesType = {
 };
 
 export const MadLibs = () => {
+    const [madLibsText, setMadLibsText] = useState<string>(''); 
 
-    const [loading, setLoading] = useState<boolean>(false);
-    const [formData, setFormData] = useState<any>(undefined);
+    const {
+        register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<initialValuesType>()
+    
+    const onSubmit: SubmitHandler<initialValuesType> = async (values) =>  {
+        const generatedMadLibsText = `Once upon a time in the bustling world of academia at Berkeley, there was a software consulting club known as the "Binary Bananas." 
+This wacky group of students was notorious for their unconventional approach to solving tech problems. Instead of traditional laptops, 
+they used ${values.noun} powered by ${values.source} to code, and their favorite programming language was ${values.language}. During their weekly meetings, 
+they would wear ${values.costume} and debate the most absurd software development theories, like the idea that debugging could be 
+done by communicating with aliens through a ${values.device}.
 
-    useEffect(() => {
-        console.log('formData: ', formData)
-    }, [formData])
+But the most hilarious part of their club meetings was the snack time, where they would munch on ${values.snack} 
+while discussing the most bizarre project ideas, such as creating a software program that translated cat meows into human language or 
+a dating app exclusively for robots. Their motto was "Coding, Chaos, and ${values.word}!" and they were determined to 
+make the tech world laugh as they debugged their way through Berkeley's campus.`;
+    setMadLibsText(generatedMadLibsText);
+    await new Promise(res => setTimeout(res, 10));
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+    
     return (
-
     <div>
         <div>
-    <Formik
-        initialValues={{
-            noun: 'hola',
-            source: '',
-            language: '',
-            costume: '',
-            device: '',
-            snack: '',
-            word: '',
-        }}
-        onSubmit={(values) => {
-            console.log("Oh my lord React, just update them!!!! ");
-            console.log('values passed in :', values)
-            if (!loading) {
-                setLoading(true);
-                // formData = JSON.stringify(values);
-                setFormData(JSON.stringify(values));
-            }
-            setLoading(false);
-            if (!loading) {
-                if (formData) {
-                    console.log(formData);
-                    console.log("working");
-                }
-            }
-        }}
-        validator={() => ({})}
-        >
-            {(props: FormikProps<initialValuesType>) => (
-        <Form  onSubmit={props.handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Box>
+                    <FormLabel>Enter a noun:</FormLabel>
+                    {/* <Input placeholder='Noun' id='noun' name='noun'/> */}
+                    <Input as={Input} id='noun' placeholder='Noun' {...register("noun")} />
+                </Box>
+            
+                <Box>
+                    <FormLabel>Enter an unconventional energy source:</FormLabel>
+                    <Input as={Input} placeholder='unconventional energy source' type='text' id='source' {...register("source")}/>
+                </Box>
+                
+                <Box>
+                    <FormLabel>Enter a ridiculously complex programming language:</FormLabel>
+                    <Input as={Input} placeholder='ridiculously complex programming language' type='text' id='language' {...register("language")}/>
+                </Box>
 
-                <FormLabel>Enter a noun:</FormLabel>
-                {/* <Input placeholder='Noun' id='noun' name='noun'/> */}
-                <Field as={Input} id='noun' name='noun' placeholder='Noun' />
-            
-                <FormLabel>Enter an unconventional energy source:</FormLabel>
-                <Field as={Input} placeholder='unconventional energy source' type='text' id='source' name='source'/>
-            
-                <FormLabel>Enter a ridiculously complex programming language:</FormLabel>
-                <Field as={Input} placeholder='ridiculously complex programming language' type='text' id='language' name='language'/>
-            
-                <FormLabel>Enter an outrageous costume:</FormLabel>
-                <Field as={Input} placeholder='outrageous costume' type='text' id='costume' name='costume'/>
-            
+                <Box>
+                    <FormLabel>Enter an outrageous costume:</FormLabel>
+                    <Input as={Input} placeholder='outrageous costume' type='text' id='costume' {...register("costume")}/>
+                </Box>
            
-                <FormLabel>Enter a silly communication device:</FormLabel>
-                <Field as={Input} placeholder='silly communication device' type='text' id='device' name='device'/>
-            
-                <FormLabel>Enter an unexpected snack:</FormLabel>
-                <Field as={Input} placeholder='unexpected snack' type='text' id='snack' name='snack'/>
-            
+                <Box>
+                    <FormLabel>Enter a silly communication device:</FormLabel>
+                    <Input as={Input} placeholder='silly communication device' type='text' id='device' {...register("device")}/>
+                </Box>
+
+                <Box>
+                    <FormLabel>Enter an unexpected snack:</FormLabel>
+                    <Input as={Input} placeholder='unexpected snack' type='text' id='snack' {...register("snack")}/>
+                </Box>
            
                 <FormLabel>Enter a random word:</FormLabel>
-                <Field as={Input} placeholder='random word' type='text' name='word'/>
+                <Input as={Input} placeholder='random word' type='text' {...register("word")}/>
             
-            
-            <Button color='teal' size='md' type='submit'>
-                Submit
-            </Button>
-        </Form>
-            )}
-    </Formik>
-  </div>
+                <Button color='teal' size='md' type='submit'>
+                    Submit
+                </Button> 
+            </form>
+        </div>
+        <div>
+        {madLibsText && (
+          <div>
+            <h2>Generated Mad Libs Text:</h2>
+            <p>{madLibsText}</p>
+          </div>
+        )}
+        </div>
     </div>
     )
 };
   
-  export default MadLibs;
+export default MadLibs;
