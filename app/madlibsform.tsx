@@ -5,6 +5,8 @@ import {
     FormLabel,
     Input,
     Button,
+    Center,
+    Text,
   } from '@chakra-ui/react'
   
 
@@ -61,54 +63,58 @@ make the tech world laugh as they debugged their way through Berkeley's campus.`
     
     return (
     <div>
+        <Center>
         <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Box>
+            <form onSubmit={handleSubmit(onSubmit)} >
+                <Box padding='5px' width='750px'>
                     <FormLabel>Enter a noun:</FormLabel>
                     {/* <Input placeholder='Noun' id='noun' name='noun'/> */}
-                    <Input as={Input} id='noun' placeholder='Noun' {...register("noun")} />
+                    <Input as={Input} id='noun' placeholder='noun' {...register("noun")} backgroundColor='white'/>
                 </Box>
             
-                <Box>
+                <Box padding='5px' width='750px'>
                     <FormLabel>Enter an unconventional energy source:</FormLabel>
-                    <Input as={Input} placeholder='unconventional energy source' type='text' id='source' {...register("source")}/>
+                    <Input as={Input} placeholder='unconventional energy source' type='text' id='source' {...register("source")} backgroundColor='white'/>
                 </Box>
                 
-                <Box>
+                <Box padding='5px' width='750px'>
                     <FormLabel>Enter a ridiculously complex programming language:</FormLabel>
-                    <Input as={Input} placeholder='ridiculously complex programming language' type='text' id='language' {...register("language")}/>
+                    <Input as={Input} placeholder='ridiculously complex programming language' type='text' id='language' {...register("language")} backgroundColor='white'/>
                 </Box>
 
-                <Box>
+                <Box padding='5px' width='750px'>
                     <FormLabel>Enter an outrageous costume:</FormLabel>
-                    <Input as={Input} placeholder='outrageous costume' type='text' id='costume' {...register("costume")}/>
+                    <Input as={Input} placeholder='outrageous costume' type='text' id='costume' {...register("costume")} backgroundColor='white'/>
                 </Box>
            
-                <Box>
+                <Box padding='5px' width='750px'>
                     <FormLabel>Enter a silly communication device:</FormLabel>
-                    <Input as={Input} placeholder='silly communication device' type='text' id='device' {...register("device")}/>
+                    <Input as={Input} placeholder='silly communication device' type='text' id='device' {...register("device")} backgroundColor='white'/>
                 </Box>
 
-                <Box>
+                <Box padding='5px' width='750px'>
                     <FormLabel>Enter an unexpected snack:</FormLabel>
-                    <Input as={Input} placeholder='unexpected snack' type='text' id='snack' {...register("snack")}/>
+                    <Input as={Input} placeholder='unexpected snack' type='text' id='snack' {...register("snack")} backgroundColor='white'/>
                 </Box>
            
                 <FormLabel>Enter a random word:</FormLabel>
-                <Input as={Input} placeholder='random word' type='text' {...register("word")}/>
+                <Input as={Input} placeholder='random word' type='text' {...register("word")} backgroundColor='white'/>
             
-                <Button color='teal' size='md' type='submit'>
+                <Button className='bg-teal-600' colorScheme='teal' size='md' type='submit' marginTop='15px' color='#FFFFFF' variant="solid">
                     Submit
                 </Button> 
+
             </form>
         </div>
+        </Center>
+        <Center>
+            {madLibsText && (
+            <div>
+                <Text fontSize='lg' padding='60px' width='870px'>{madLibsText}</Text>
+            </div>
+            )}
+        </Center>
         <div>
-        {madLibsText && (
-          <div>
-            <h2>Generated Mad Libs Text:</h2>
-            <p>{madLibsText}</p>
-          </div>
-        )}
         </div>
     </div>
     )
